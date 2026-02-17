@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠🇧🇾 БелУзор v0.1 — Інтэлектуальны пошук па ўзоры давераных кніг</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠🇧🇾</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Бакавая панэль -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <h1>🧠🇧🇾 БелУзор <span class="version">v0.1</span></h1>
+                </div>
+                <p class="subtitle">Пошук па ўзоры давераных кніг</p>
+                <p class="description">Сістэма працуе па тым узоры (кнізе), якому вы давяраеце</p>
+            </div>
+
+            <div class="sidebar-section">
+                <button class="btn-new-chat" onclick="newChat()">
+                    <span>➕</span> Новы дыялог
+                </button>
+            </div>
+
+            <div class="sidebar-section chats-section-main">
+                <h3>💬 Дыялогі <span class="chat-count" id="chat-count">(0)</span></h3>
+                <div class="chats-list" id="chats-list">
+                    <p class="no-chats">Дыялогаў няма</p>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>📊 Статыстыка</h3>
+                <div class="stats-container" id="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Фактаў:</span>
+                        <span class="stat-value" id="stat-facts">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Слоў:</span>
+                        <span class="stat-value" id="stat-words">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Кніг:</span>
+                        <span class="stat-value" id="stat-books">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>🤙 LLM Статус</h3>
+                <div class="llm-status" id="llm-status">
+                    <span class="status-indicator" id="llm-indicator"></span>
+                    <span id="llm-text">Загрузка...</span>
+                </div>
+                <div class="llm-controls">
+                    <button class="btn-llm btn-llm-enable" onclick="enableLLM()" id="btn-llm-enable">Уключыць LLM</button>
+                    <button class="btn-llm btn-llm-disable" onclick="disableLLM()" id="btn-llm-disable">Адключыць LLM</button>
+                </div>
+                <button class="btn-llm-settings" onclick="openModal()">⚙️ Налады LLM</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>⚙️ Налады</h3>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="use-llm" checked>
+                    <span>Выкарыстоўваць LLM</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="show-facts" checked>
+                    <span>Паказваць крыніцы</span>
+                </label>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>📚 Матэрыялы</h3>
+
+                <!-- Энцыклапедыі -->
+                <div class="materials-group">
+                    <div class="materials-header" onclick="toggleMaterials('encyclopedia')">
+                        <span>📖 Энцыклапедыя (18 томаў)</span>
+                        <span class="toggle-icon" id="encyclopedia-icon">▶</span>
+                    </div>
+                    <div class="materials-list" id="encyclopedia-list" style="display: none;">
+                        <p class="loading">Загрузка...</p>
+                    </div>
+                </div>
+
+                <!-- Кнігі -->
+                <div class="materials-group">
+                    <div class="materials-header" onclick="toggleMaterials('books')">
+                        <span>📕 Кнігі (падручнікі)</span>
+                        <span class="toggle-icon" id="books-icon">▶</span>
+                    </div>
+                    <div class="materials-list" id="books-list" style="display: none;">
+                        <p class="loading">Загрузка...</p>
+                    </div>
+                </div>
+
+                <!-- Слоўнікі -->
+                <div class="materials-group">
+                    <div class="materials-header" onclick="toggleMaterials('dictionaries')">
+                        <span>📗 Слоўнікі <span class="beta-badge">🅱️ Бэта</span></span>
+                        <span class="toggle-icon" id="dictionaries-icon">▶</span>
+                    </div>
+                    <div class="materials-list" id="dictionaries-list" style="display: none;">
+                        <p class="loading">Загрузка...</p>
+                    </div>
+                </div>
+
+                <button class="btn-add-book" onclick="addBook()">📁 Дадаць кнігу</button>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>🧠🇧🇾 БелУзор v0.1</p>
+                <p class="copyright">2026 © Усе правы абаронены</p>
+                <p class="tagline">Працуем па ўзоры давераных кніг</p>
+            </div>
+        </aside>
+
+        <!-- Галоўная вобласць -->
+        <main class="main-content">
+            <!-- Загаловак -->
+            <header class="chat-header">
+                <h2>💬 Дыялог па гісторыі Беларусі</h2>
+                <div class="header-actions">
+                    <button class="btn-icon" onclick="saveChat()" title="Захаваць дыялог">💾</button>
+                    <button class="btn-icon" onclick="loadChat()" title="Загрузіць дыялог">📂</button>
+                    <button class="btn-icon" onclick="clearHistory()" title="Ачысціць гісторыю">🗑️</button>
+                    <button class="btn-icon" onclick="exportChat()" title="Экспарт дыялогу">📁</button>
+                </div>
+            </header>
+
+            <!-- Вобласць чата -->
+            <div class="chat-container" id="chat-container">
+                <div class="welcome-message" id="welcome-message">
+                    <h2>🎯 Сардэчна запрашаем!</h2>
+                    <p>Я — інтэлектуальная сістэма <strong>БелУзор</strong>.</p>
+                    <p class="highlight">Я працую па тым <strong>узору (кнізе)</strong>, якому вы давяраеце.</p>
+                    <p>Задайце пытанне, і я знайду адказ у базе ведаў на беларускай мове.</p>
+                    
+                    <div class="about-system">
+                        <h3>📖 Як гэта працуе?</h3>
+                        <ul>
+                            <li>✅ Сістэма выкарыстоўвае толькі <strong>давераныя крыніцы</strong></li>
+                            <li>✅ Вы можаце дадаваць свае кнігі і тэксты</li>
+                            <li>✅ Пошук вядзецца па беларускай мове</li>
+                            <li>✅ Кожны адказ мае спасылкі на крыніцы</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-questions">
+                        <h3>📝 Прыклады пытанняў:</h3>
+                        <div class="examples-grid">
+                            <button class="example-btn" onclick="sendExample('Год заснавання Мінска?')">
+                                ❓ Год заснавання Мінска?
+                            </button>
+                            <button class="example-btn" onclick="sendExample('Хто такі Кастусь Каліноўскі?')">
+                                ❓ Хто такі Кастусь Каліноўскі?
+                            </button>
+                            <button class="example-btn" onclick="sendExample('Што такое Статут 1588 года?')">
+                                ❓ Што такое Статут 1588 года?
+                            </button>
+                            <button class="example-btn" onclick="sendExample('Грунвальдская бітва 1410 года')">
+                                ❓ Грунвальдская бітва 1410 года
+                            </button>
+                            <button class="example-btn" onclick="sendExample('Люблінская унія 1569 года')">
+                                ❓ Люблінская унія 1569 года
+                            </button>
+                            <button class="example-btn" onclick="sendExample('Вайна 1812 года ў Беларусі')">
+                                ❓ Вайна 1812 года ў Беларусі
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messages-container"></div>
+            </div>
+
+            <!-- Поле ўводу -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="message-input" 
+                        placeholder="Увядзіце ваша пытанне па гісторыі Беларусі..."
+                        rows="1"
+                        onkeydown="handleKeyDown(event)"
+                        oninput="autoResize(this)"
+                    ></textarea>
+                    <button class="btn-send" onclick="sendMessage()" id="btn-send">
+                        <span>➤</span>
+                    </button>
+                </div>
+                <p class="input-hint">Націсніце Enter для адпраўкі, Shift+Enter для новага радка</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальнае акно налад LLM -->
+    <div class="modal" id="llm-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Налады LLM</h3>
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Provider:</label>
+                    <select id="llm-provider">
+                        <option value="ollama">Ollama (лакальна)</option>
+                        <option value="lmstudio">LM Studio</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="custom">Custom URL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Мадэль:</label>
+                    <input type="text" id="llm-model" placeholder="llama3.2:3b" value="llama3.2:3b">
+                </div>
+                <div class="form-group">
+                    <label>Custom URL:</label>
+                    <input type="text" id="llm-custom-url" placeholder="http://192.168.0.116:1234/v1">
+                </div>
+                <div class="info-box">
+                    <p>💡 LLM дазваляе атрымліваць разгорнутыя адказы з улікам кантэксту дыялогу.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal()">Скасаваць</button>
+                <button class="btn-save" onclick="saveLLMSettings()">Захаваць</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальнае акно прагляду слоўніка -->
+    <div class="modal" id="dictionary-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>📗 <span id="dict-title">Слоўнік</span></h3>
+                <button class="btn-close" onclick="closeDictionaryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="dictionary-controls">
+                    <input type="text" id="dict-search" class="dict-search-input" placeholder="🔍 Пошук слова..." oninput="filterDictionary()">
+                    <div class="dict-stats">
+                        <span id="dict-count">0 запісаў</span>
+                    </div>
+                </div>
+                <div class="dictionary-content" id="dictionary-content">
+                    <p class="loading">Загрузка...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Схаваны input для загрузкі файла -->
+    <input type="file" id="file-input" accept=".txt" style="display: none;" onchange="handleFileSelect(event)">
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

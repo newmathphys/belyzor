@@ -1,0 +1,17 @@
+{
+  "llm": {
+    "enabled": false,
+    "provider": "ollama",
+    "model": "llama3.2:3b",
+    "max_tokens": 1000,
+    "temperature": 0.5
+  },
+  "cache": {
+    "enabled": true,
+    "ttl_seconds": 60
+  },
+  "search": {
+    "max_results": 10,
+    "use_llm_ranking": false
+  }
+}
