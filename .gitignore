@@ -1,72 +1,30 @@
+```
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual environments
-venv/
-env/
-ENV/
-.venv
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+*.pyc
+*.pyo
+*.pyd
 
 # Logs
-logs/
 *.log
+logs/
 
-# Data (вялікія файлы)
-data/etalons/facts.json
-data/raw/history/*.txt
-data/raw/bel-en/*.txt
-data/raw/dictionaries/*/belse.html
-data/raw/dictionaries/*/klyshka.html
-data/raw/dictionaries/*/rbs.dsl
-*.db
-*.sqlite
-*.sqlite3
-
-# Cache
-data/cache/
-*.cache
-
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# OS
-.DS_Store
-Thumbs.db
-
-# LLM config (можа ўтрымліваць API ключы)
-llm_config.json
-
-# Test results
-tests/metrics_results.json
-llm_config.json
+# Dependencies
+venv/
+.venv/
 .env
-*.local.json
-config.json
+.env.local
+*.env.*
+
+# Tests
+.tests/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+
+# Build artifacts
+dist/
+build/
+target/
+```
