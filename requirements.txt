@@ -1,5 +1,6 @@
 # Core dependencies
 numpy>=1.20.0
+requests>=2.31.0
 
 # GUI
 PyQt5>=5.15.0
