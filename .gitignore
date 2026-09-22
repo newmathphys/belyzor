@@ -1,9 +1,38 @@
 ```
-# Python
+# Dependencies
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.local
+.env.*
+venv/
+.venv/
+.envrc
+.venv.bak/
+pip-log.txt
+pip-selfcheck.json
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+.MF
+.tags*
+test.emlx
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -20,66 +49,12 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-venv/
-env/
-ENV/
-.venv/
-.env/
-.ENV/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git/modules/
-.pytest_cache/
-.hypothesis/
-.coverage/
-.mypy_cache/
+MANIFEST
 
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.pyo
-*.pyd
-*.so
-*.egg-info/
-build/
-dist/
-*.class
-*.o
-*.obj
-*.out
-
-# Dependencies
-node_modules/
-.venv/
-venv/
-.env
-.env.local
-.env.*
-
-# Logs
-*.log
-
-# Editor/IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*.tmp
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# OS generated files
-.DS_Store
-Thumbs.db
+*~
 ```

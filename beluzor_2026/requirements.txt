@@ -16,8 +16,9 @@ sacremoses==0.1.1
 sentence-transformers==3.3.1
 faiss-cpu==1.9.0
 qdrant-client==1.12.1
+rank-bm25==0.2.2
 
-# Машыннае навучанне і LLM
+# Машыннае навучанне і трансфармеры
 torch==2.5.1
 transformers==4.47.1
 accelerate==1.2.1
