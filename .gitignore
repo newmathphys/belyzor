@@ -4,33 +4,18 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.env
-.env.local
-.env.*
+.Python
+env/
 venv/
 .venv/
-.envrc
+.ENV
 .venv.bak/
 pip-log.txt
 pip-selfcheck.json
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-*.pot
-*.pyc
-*.pyo
-*.pyd
-.MF
-.tags*
-test.emlx
 .pytest_cache/
 .mypy_cache/
-.hypothesis/
+.coverage
+coverage/
 
 # Distribution / packaging
 .Python
@@ -51,10 +36,32 @@ wheels/
 *.egg
 MANIFEST
 
+# Environment variables
+.env
+.env.local
+.env.dev
+.env.prod
+.env.*
+!.env.example
+
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 ```

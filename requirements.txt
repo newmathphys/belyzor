@@ -23,8 +23,9 @@ torch>=2.0.0
 faiss-cpu>=1.7.0
 chromadb>=0.4.0
 
-# Reranking
-BAAI/bge-reranker-v2-m3
+# Reranking (бібліятэкі для працы з рэранкерамі)
+# Мадэль BAAI/bge-reranker-v2-m3 загружаецца аўтаматычна праз transformers
+sentence-transformers>=2.2.0
 
 # Graph Database (optional)
 networkx>=3.0
