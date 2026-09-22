@@ -12,6 +12,28 @@ flask-cors>=3.0.0
 # Hugging Face Spaces
 gradio>=3.50.0
 
+# NLP - Belarusian language support
+stanza>=1.7.0
+spacy>=3.5.0
+
+# Vector Search & Embeddings
+transformers>=4.35.0
+sentence-transformers>=2.2.0
+torch>=2.0.0
+faiss-cpu>=1.7.0
+chromadb>=0.4.0
+
+# Reranking
+BAAI/bge-reranker-v2-m3
+
+# Graph Database (optional)
+networkx>=3.0
+
+# Async support (for future FastAPI migration)
+uvicorn>=0.24.0
+fastapi>=0.104.0
+
 # Development (optional)
 # pytest>=6.0.0
-# sentence-transformers>=2.0.0  # Для будучых пашырэнняў
+# black>=23.0.0
+# ruff>=0.1.0
